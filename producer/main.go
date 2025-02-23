@@ -45,7 +45,7 @@ func PushOrderToQueue(topic string, message []byte) error {
 }
 
 func produceCoffee(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodOptions {
+	if r.Method != http.MethodPost {
 		http.Error(w, "Not a valid HTTP method", http.StatusMethodNotAllowed)
 		return
 	}
@@ -63,7 +63,7 @@ func produceCoffee(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = PushOrderToQueue("Coffee Orders", byteData)
+	err = PushOrderToQueue("CoffeeOrders", byteData)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
